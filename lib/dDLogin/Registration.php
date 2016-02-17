@@ -1,5 +1,6 @@
 <?php
 // TODO TODO TODO 
+require_once('password_compatibility_library.php'); 
 /**
  * Class registration
  * handles the user registration
@@ -102,7 +103,7 @@ class Registration
                     $this->errors[] = "Sorry, that username / email address is already taken.";
                 } else {
                     // write new user's data into database
-                    $sql = "INSERT INTO users (user_name, user_password_hash, user_email)
+                    $sql = "INSERT INTO ew_user (user_name, user_password_hash, user_email)
                             VALUES('" . $user_name . "', '" . $user_password_hash . "', '" . $user_email . "');";
                     $query_new_user_insert = $this->db_connection->query($sql);
 

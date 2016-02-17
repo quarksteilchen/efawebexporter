@@ -1,6 +1,6 @@
 <?php
 // dDLogin origins from the badly implemented "A PHP login script (MINIMAL)"
-
+require_once('password_compatibility_library.php'); 
 /**
  * Class login
  * handles the user's login and logout process
@@ -71,10 +71,10 @@ class Login
           // database query, getting all the info of the selected user (allows login via email address in the
           // username field)
           $sql = "SELECT user_name, user_role, user_email, user_password_hash
-                  FROM users
+                  FROM ew_user
                   WHERE user_name = '" . $user_name . "' OR user_email = '" . $user_name . "';";
           $result_of_login_check = $this->db_connection->query($sql);
-
+          
           // if this user exists
           if ($result_of_login_check->num_rows === 1) {
 

@@ -24,6 +24,41 @@ class EWBasic
     return TRUE;
   }
   
+  public static function getErrHtml($errArr)
+  {
+    $outHtml='';
+    if(is_array($errArr) && count($errArr)>0)
+    {
+      $outHtml.='Error:<ul class="err"><li>';
+      $outHtml.=implode('</li><li>', $errArr);
+      $outHtml.='</li></ul>';
+    }
+    return $outHtml;
+  }
+  
+  public static function getInfoHtml($infoArr)
+  {
+    $outHtml='';
+    if(is_array($infoArr) && count($infoArr)>0)
+    {
+      $outHtml.='Info:<ul class="info"><li>';
+      $outHtml.=implode('</li><li>', $infoArr);
+      $outHtml.='</li></ul>';
+    }
+    return $outHtml;
+  }
+  
+  public static function printIfSet($var,$return=false)
+  {
+    if(isset($var))
+    {
+      if($return===true)
+        return $var;
+      else
+        echo $var;
+    }
+  }
+  
   /**
    * Generates a random Hash with a defined Alphabet (36characters) (if given).
    * For this alphabet and a default length of 10, 
@@ -133,6 +168,30 @@ class EWBasic
   {
     $d = new DateTime($date);
     return $d->format($targetformat);
+  }
+  
+  public static function reFormatTimeOfDay($timeofday)
+  {
+    return EWBasic::reFormatDate($timeofday,'H:i');
+  }
+  
+  /**
+   * Parse a string for a distance
+   * @param string $dist_str The distance as a string
+   * @return int Distance in meters
+   */
+  public static function getDistance($dist_str)
+  {
+    //$number = preg_replace('/[^\-\d]*(\-?\d*).*/','$1',$dist_str); // int number
+    $number = floatval(str_replace(',','.',$dist_str));
+    $multiplicator = 1;
+    if     (stristr($dist_str, 'km')!==FALSE) { $multiplicator = 1000; } // Kilometer
+    else if(stristr($dist_str, 'mi')!==FALSE) { $multiplicator = 1609.344; } // int. mile
+    else if(stristr($dist_str, 'nm')!==FALSE) { $multiplicator = 1852; } // nautical mile
+    else if(stristr($dist_str, 'yd')!==FALSE) { $multiplicator = 0.9144; } // yard
+    else if(stristr($dist_str, 'fur')!==FALSE) { $multiplicator = 201.168; } // furlong
+    
+    return intval($number*$multiplicator);
   }
   
   public static function efaTime2Time($efaTime)

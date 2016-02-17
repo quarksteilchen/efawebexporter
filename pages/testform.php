@@ -10,7 +10,7 @@ require_once(dirname(__FILE__) . '/../inc/efadata.inc.php');
   }
   
   // process POST-data:
-  if(isset($_POST))
+  if(isset($_POST)) // TODO: $_POST is always set!
   {
     // (1) check if minimum is there
     if(isset($_POST['date-from'],$_POST['boat']))

@@ -35,6 +35,32 @@ class EFaData
       $this->dbi=$dbcnx;
   }
   
+  public function exportLB2Csv($lbArr)
+  {
+    $nl = "\r\n";
+    $sep = '|';
+    $header = 'Distance|Date|Destination|Boat|Crew1|Crew2|Crew3|Crew4|Crew5|Crew6|Crew7|Crew8';
+    $tmp = '';
+    
+    for($i=0; $i<count($lbArr); $i++)
+    {
+      $tmp.=$lbArr['Distance'].$sep;
+      $tmp.=$lbArr['Date'].$sep;
+      $tmp.=$lbArr['Destination'].$sep;
+      $tmp.=$lbArr['Boat'].$sep;
+      $tmp.=$lbArr['Crew1'].$sep;
+      $tmp.=$lbArr['Crew2'].$sep;
+      $tmp.=$lbArr['Crew3'].$sep;
+      $tmp.=$lbArr['Crew4'].$sep;
+      $tmp.=$lbArr['Crew5'].$sep;
+      $tmp.=$lbArr['Crew6'].$sep;
+      $tmp.=$lbArr['Crew7'].$sep;
+      $tmp.=$lbArr['Crew8'].$nl;
+    }
+    
+    return $header.$nl.$tmp;
+  }
+  
   public function getListOptions($efa2Type,$addFilter=NULL)
   {
     $out = ''; // temp out var
